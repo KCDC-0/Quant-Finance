@@ -106,5 +106,9 @@ rank(group_neutralize(smoothed * rank((high + low)/2 - close), industry))
 ```
 
 ```
-trade_when(0.5 >= scl12_buzz, rank((high + low)/2 - close) , -1)
+trade_when(0.8 >= scl12_buzz, rank((high + low)/2 - close) , -1)
+```
+
+```
+liabilities/assets
 ```
