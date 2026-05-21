@@ -41,6 +41,11 @@ raw = (implied_volatility_call_120 - implied_volatility_put_120)/implied_volatil
 rank(ts_decay_linear(ts_backfill(raw, 10), 20))
 ```
 
+USA, TOP3000, Decay 20, Delay 1, Truncation 0.1, Neutralization Subindustry
+```
+raw = rank(liabilities/assets);
+rank(group_neutralize(raw * rank((high + low)/2 - close), industry))
+```
 
 <br>
 
@@ -107,6 +112,10 @@ rank(group_neutralize(smoothed * rank((high + low)/2 - close), industry))
 
 ```
 trade_when(0.8 >= scl12_buzz, rank((high + low)/2 - close) , -1)
+```
+
+```
+-ts_std_dev(scl12_buzz, 10)
 ```
 
 ```
