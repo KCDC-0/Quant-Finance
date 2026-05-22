@@ -47,6 +47,10 @@ raw = rank(liabilities/assets);
 rank(group_neutralize(raw * rank((high + low)/2 - close), industry))
 ```
 
+```
+-ts_std_dev(scl12_buzz, 20)
+```
+
 <br>
 
 
