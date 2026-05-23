@@ -47,6 +47,7 @@ raw = rank(liabilities/assets);
 rank(group_neutralize(raw * rank((high + low)/2 - close), industry))
 ```
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.08, Neutralization Subindustry
 ```
 -ts_std_dev(scl12_buzz, 20)
 ```
@@ -124,4 +125,15 @@ trade_when(0.8 >= scl12_buzz, rank((high + low)/2 - close) , -1)
 
 ```
 liabilities/assets
+```
+
+```
+stab = -ts_std_dev(scl12_buzz, 20);
+sent = ts_mean(scl12_buzz, 20);
+
+rank(group_neutralize(rank(stab) + rank(sent), subindustry))
+```
+
+```
+rank(-ts_std_dev(volume, 20))
 ```
