@@ -52,6 +52,20 @@ USA, TOP3000, Decay 0, Delay 1, Truncation 0.08, Neutralization Subindustry
 -ts_std_dev(scl12_buzz, 20)
 ```
 
+USA, TOP3000, Decay 0, Delay 20, Truncation 0.1, Neutralization Subindustry
+```
+main_signal = ts_decay_linear(rank(mdl177_garpanalystmodel_qgp_relgrowth), 10);
+price_catalyst = rank(-ts_delta(close, 3) / ts_std_dev(returns, 20));
+raw = min(max(main_signal * price_catalyst, 0.02), 0.98);
+
+rank(group_neutralize(raw, subindustry))
+```
+
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.1, Neutralization Subindustry
+```
+rank(-mdl177_2_5yearrelativevaluefactor_rel5yfwdep)
+```
+
 <br>
 
 
@@ -136,4 +150,10 @@ rank(group_neutralize(rank(stab) + rank(sent), subindustry))
 
 ```
 rank(-ts_std_dev(volume, 20))
+```
+
+```
+grow = ts_delta(ebitda, 252) / ts_delay(assets, 252);
+valuation = rank(enterprise_value / sales);
+rank(group_neutralize(rank(grow) / (valuation + 0.01), subindustry))
 ```

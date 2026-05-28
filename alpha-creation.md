@@ -152,7 +152,7 @@ Layer 3: Risk management & Scaling (neutralization)
 ## Tweaking operators
 - lower turnover: linear decay smoothing or increase lookback windows
 - lower weight concentrtion: use lower truncation values or clamp on outliers (normalize, rank, log, zscore), use min max to remove outliers
-- improve sub-universe sharpe: normalize the signal magnitude by group volatility
+- improve sub-universe sharpe: normalize the signal magnitude by group volatility (eg: normalise by subindustry), or convert mean to group_zscore
 
 
 ## Expansion ideas
