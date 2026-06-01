@@ -121,6 +121,27 @@ raw_neutral = group_neutralize(raw, subindustry);
 rank(min(max(raw_neutral, 0.02), 0.98))
 ```
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.12, Neutralization Subindustry
+```
+solvency_anchor = rank(group_zscore(mdl77_altmanz, subindustry));
+
+market_dispersion = ts_mean(ts_std_dev(returns, 10), 60);
+uncertainty_regime = rank(market_dispersion); 
+
+reversion_engine = rank(ts_mean(-ts_delta(close, 3), 10));
+
+raw = (solvency_anchor * uncertainty_regime) + (reversion_engine * (1.0 - uncertainty_regime));
+
+rank(group_neutralize(min(max(raw, 0.02), 0.98), subindustry))
+```
+> Main hypothesis:  valuing stable stocks higher in periods of market uncertainty, and going back to mean reversion during calm periods could results in the best of both worlds
+>
+> Testing impovements: 
+> - using the bankruptcy risk indicator (mdl77_altmanz) to identify 'safe' companies that are less vulnerable to economic downturns, especially in times of market uncertainty
+> - the reversion engine has a much lower lookback window as compared to the uncertainty regime (10 vs 60), so that the alpha identifies short-term market overreactions during quiet regimes, and long-term stable stocks in times of volatility
+> - inceasing a low decay lookback window to allow the alpha to change wieghts quickly given changing market conditions
+
+
 <br>
 
 ### Social media sentiment:

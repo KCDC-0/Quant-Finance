@@ -139,3 +139,18 @@ rank(group_neutralize(min(max(combined_signal, 0.02), 0.98), subindustry))
 ```
 rp_css_ratings
 ```
+
+```
+rank(group_zscore(mdl77_altmanz, subindustry))
+```
+
+```
+smoothed_buys = rank(snt1_d1_buyrecpercent);
+coverage_weight = rank(group_zscore(snt1_d1_analystcoverage, subindustry));
+
+reversion_trigger = rank(-ts_delta(close, 3) / ts_std_dev(close, 10));
+combined_alpha = (smoothed_buys * coverage_weight) + (0.3 * reversion_trigger);
+
+normalized_vector = group_zscore(combined_alpha, subindustry);
+rank(group_neutralize(ts_decay_linear(min(max(normalized_vector, -2.0), 2.0), 5), subindustry))
+```
