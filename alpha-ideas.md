@@ -154,3 +154,8 @@ combined_alpha = (smoothed_buys * coverage_weight) + (0.3 * reversion_trigger);
 normalized_vector = group_zscore(combined_alpha, subindustry);
 rank(group_neutralize(ts_decay_linear(min(max(normalized_vector, -2.0), 2.0), 5), subindustry))
 ```
+
+```
+raw_mom = -rank(rank(ts_rank(close, 10)) + rank(close / ts_delay(close, 10)));
+raw_mom * rank(ts_delta(close, 40) / ts_std_dev(returns, 40))
+```
