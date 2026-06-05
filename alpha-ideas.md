@@ -159,3 +159,7 @@ rank(group_neutralize(ts_decay_linear(min(max(normalized_vector, -2.0), 2.0), 5)
 raw_mom = -rank(rank(ts_rank(close, 10)) + rank(close / ts_delay(close, 10)));
 raw_mom * rank(ts_delta(close, 40) / ts_std_dev(returns, 40))
 ```
+
+```
+(adv20 < volume) ? ((-1 * ts_rank(abs(ts_delta(close, 3)), 60)) * sign(ts_delta(close, 3))) : (-1)
+```
