@@ -84,6 +84,19 @@ rank(group_neutralize(ts_decay_linear(min(max(raw_short_signal, 0.05), 0.95), 50
 ```
 
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.08, Neutralization Subindustry
+
+```
+raw = -ts_rank(fn_liab_fair_val_l1_a, 100);
+ts_decay_linear(raw, 10)
+```
+
+> Main hypothesis: Sell stocks when there is an increase in the fair value of liabilities, which serves as an indicator for lower profitability 
+> 
+> Testing impovements: 
+> - ranking the stocks based on an observation period of 100 days instead of a year to allow for more accurate financial health prediction
+> - use of a decay horizon to smoothly distribute weight transitions, reducing turnover
+
 <br>
 
 ### News:
