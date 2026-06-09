@@ -163,3 +163,15 @@ raw_mom * rank(ts_delta(close, 40) / ts_std_dev(returns, 40))
 ```
 (adv20 < volume) ? ((-1 * ts_rank(abs(ts_delta(close, 3)), 60)) * sign(ts_delta(close, 3))) : (-1)
 ```
+
+```
+ts_corr(vwap, close, 7)
+```
+
+```
+ts_decay_linear(rank((vwap - close) / close), 5)
+```
+
+```
+-ts_zscore(enterprise_value/ebitda,63)
+```

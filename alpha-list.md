@@ -97,6 +97,20 @@ ts_decay_linear(raw, 10)
 > - ranking the stocks based on an observation period of 100 days instead of a year to allow for more accurate financial health prediction
 > - use of a decay horizon to smoothly distribute weight transitions, reducing turnover
 
+
+USA, TOP3000, Decay 50, Delay 1, Truncation 0.2, Neutralization Sector
+```
+-ts_corr(fnd6_fopo, debt_lt, 23)
+```
+
+> Main hypothesis: Companies that accumulate high funds from operations compared to their long term debt, can be considered sustainable in the future
+> 
+> Testing impovements: 
+> - using a time series correlation of FFO to long-term debt instead of a ratio, to identify increasing financial health overtime
+> - using a lookback period of just short of a month (23 days) to match the speed at which companies accumulate funds, to create a more accurate signal
+> - using higher truncation values to improve sharpe while maintaining turnover, thus improving fitness in the process
+> - use of a long decay horizon of 50 days to reduce instances of overly high weight concentrations
+
 <br>
 
 ### News:
