@@ -175,3 +175,12 @@ ts_decay_linear(rank((vwap - close) / close), 5)
 ```
 -ts_zscore(enterprise_value/ebitda,63)
 ```
+
+```
+ts_regression(ts_sum(ts_backfill(fnd6_newqv1300_ivltq,60),252),ts_step(1),756,rettype = 2);
+```
+
+```
+slope = ts_regression(ts_backfill(news_pct_1min,20), ts_step(1), 5, rettype=2);
+winsorize(-ts_backfill(news_max_up_ret,20) * abs(slope),std = 4)
+```
