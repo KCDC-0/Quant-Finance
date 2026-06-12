@@ -135,6 +135,17 @@ winsorize(-ts_backfill(news_max_up_ret, 20) * abs(slope),std=4)
 > - having a high decay lookback period (20 days) to reduce magnitude of weights placed on the stocks, reducing turnover
 
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.08, Neutralization Subindustry
+```
+ts_regression(ts_sum(ts_backfill(fnd6_newqv1300_ivltq,30),300),ts_step(1),756,rettype = 2) * group_rank(ts_rank(est_eps/close, 90),industry)
+```
+
+> Main hypothesis:  The firms that invest more in the long-term may get more profit in the future than those who do not
+>
+> Testing impovements: 
+> - reducing the backfill lookback window to 30 days to prevent older news from replacing NaN values, when they may be irrelevant in recent times
+> - multiplying the main news weight with an earnings yield momentum model, adding more weight to firms that also have recently increasing earnings in the past quarter - preventing weight from being placed on firms that carelessly invest more
+> - removing the decay to increase turnover, allowing more weight to be places on the stocks which in turn also increases sharpe
 
 
 <br>
@@ -216,6 +227,18 @@ rank(group_neutralize(min(max(raw, 0.02), 0.98), subindustry))
 > - the reversion engine has a much lower lookback window as compared to the uncertainty regime (10 vs 60), so that the alpha identifies short-term market overreactions during quiet regimes, and long-term stable stocks in times of volatility
 > - having a low decay lookback window to allow the alpha to change weights quickly given changing market conditions
 
+
+USA, TOP3000, Decay 20, Delay 1, Truncation 0.01, Neutralization Subindustry
+```
+-ts_corr(est_ptp,est_fcf,26)
+```
+
+> Main hypothesis:  When analyst price target estimates and free cashflow estimates  have high positive correlation in the past few weeks, it may signal that the market has already fully priced in the cash flow expectations into price targets — leaving little room for further upside
+>
+> Testing impovements: 
+> - reducing the correlation lookback window from a year to less than month to provide a more indicative window to react on the price correction
+> - using a low truncation value of 0.01 to prevent overly high weight concentrations, indirectly improving fitness
+> - having a high decay lookback period (20 days) to reduce magnitude of weights placed on the stocks, reducing turnover and improving fitness
 
 <br>
 

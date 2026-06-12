@@ -29,7 +29,7 @@ Volatility Hypotheses
 
 # Alpha ideas
 
-List of possible ideas to explore / alphas that are close but do not meet requirements to pass
+List of possible ideas to explore / alphas that are close but do not meet requirements to pass (yet)
 <br>
 <br>
 
@@ -183,4 +183,8 @@ ts_regression(ts_sum(ts_backfill(fnd6_newqv1300_ivltq,60),252),ts_step(1),756,re
 ```
 slope = ts_regression(ts_backfill(news_pct_1min,20), ts_step(1), 5, rettype=2);
 winsorize(-ts_backfill(news_max_up_ret,20) * abs(slope),std = 4)
+```
+
+```
+ts_decay_linear(-ts_regression(returns, ts_step(1), 60, rettype=0), 10)
 ```
