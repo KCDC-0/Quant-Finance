@@ -121,6 +121,22 @@ avg_news = vec_avg(nws12_afterhsz_sl);
 rank((2/3) * ts_sum(avg_news, 30) + (2/3) * ts_sum(avg_news, 60)) > 0.5 ? 1 : rank(-ts_delta(close, 2))
 ```
 
+
+USA, TOP3000, Decay 20, Delay 1, Truncation 0.15, Neutralization Subindustry
+```
+slope = ts_regression(ts_backfill(news_pct_1min, 20), ts_step(1), 2, rettype=2);
+winsorize(-ts_backfill(news_max_up_ret, 20) * abs(slope),std=4)
+```
+
+> Main hypothesis:  When the multi-day slope of first-minute reactions is deteriorating but a large up-spike occurs today, it flags potential trap.
+>
+> Testing impovements: 
+> - reducing the backfill lookback window to 20 days to prevent older news from replacing NaN values, when they may be irrelevant
+> - having a high decay lookback period (20 days) to reduce magnitude of weights placed on the stocks, reducing turnover
+
+
+
+
 <br>
 
 ### Volatility:
