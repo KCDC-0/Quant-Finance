@@ -50,6 +50,20 @@ rank(group_neutralize(ts_decay_linear(clamped_output, 5), sector))
 > - using a linear decay on the raw values to smooth the raw data and reduce turnover, protecting the weights from sudden, single-day momentum shifts
 
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.01, Neutralization Market
+```
+rank(ts_decay_linear(ts_corr(vwap, close, 7) * 0.6 + 0.4 * rank((vwap - close) / close), 17))
+```
+
+> Main hypothesis:  Pairing the short-term rolling 7-day time-series correlation between VWAP and closing prices with an intraday basis spread ratio, could create a model that exploits temporary liquidity-driven price dislocations
+>
+> Testing impovements: 
+> - using the spread between vwap and closing prices to capture late-day order-book imbalances
+> - finding that the ratio of 60% to 40% of the correlation model to the ratio model produced the highest overall sharpe
+> - using a 17-day linear decay window to dampen the high-frequency trading friction and reduce turnover
+> - finding that using market group neutralisation produced the highest fitness values
+
+
 <br>
 
 ### Fundamental data:
@@ -110,6 +124,23 @@ USA, TOP3000, Decay 50, Delay 1, Truncation 0.2, Neutralization Sector
 > - using a lookback period of just short of a month (23 days) to match the speed at which companies accumulate funds, to create a more accurate signal
 > - using higher truncation values to improve sharpe while maintaining turnover, thus improving fitness in the process
 > - use of a long decay horizon of 50 days to reduce instances of overly high weight concentrations
+
+
+USA, TOP3000, Decay 4, Delay 1, Truncation 0.08, Neutralization Sector
+```
+cash_quality = ts_decay_linear(ts_scale(est_cashflow_op,252),4)-ts_decay_linear(ts_scale(est_capex,252),4);
+inventory_quality = ts_decay_linear(inventory/sales, 100);
+rank(cash_quality * inventory_quality)
+```
+
+> Main hypothesis: Companies with persistently high estimated operating cash flow relative to their capital expenditure are expected to outperform
+> 
+> Testing impovements: 
+> - using the change in the inventory-to-sales ratio to identify companies experience a dramatic improvement in inventory turnover, amplifying the signal
+> - using sector neutralisation instead of industry, to improve sharpe as inventory of a company can differ greatly between sectors
+> - using a long decay window of 100 days on the inventory sales ratio to isolate the top tier of improvers over a longer period
+> - slightly smoothing the free cash flow signal with a linear decay to reduce turnover, but not so much as to minimise reduction on returns and sharpe
+
 
 <br>
 

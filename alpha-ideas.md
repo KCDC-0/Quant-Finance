@@ -188,3 +188,13 @@ winsorize(-ts_backfill(news_max_up_ret,20) * abs(slope),std = 4)
 ```
 ts_decay_linear(-ts_regression(returns, ts_step(1), 60, rettype=0), 10)
 ```
+
+```
+rank(ts_corr(vwap, close, 7) * 0.6 + 0.4 * rank((vwap - close) / close))
+```
+
+```
+cash_quality = ts_decay_linear(ts_scale(est_cashflow_op,252),5)-ts_decay_linear(ts_scale(est_capex,252),5);
+inventory_quality = ts_decay_linear(inventory/sales, 100);
+rank(cash_quality * inventory_quality)
+```
