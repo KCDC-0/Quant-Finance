@@ -198,3 +198,7 @@ cash_quality = ts_decay_linear(ts_scale(est_cashflow_op,252),5)-ts_decay_linear(
 inventory_quality = ts_decay_linear(inventory/sales, 100);
 rank(cash_quality * inventory_quality)
 ```
+
+```
+group_rank(-ts_zscore(mdl177_deepvaluefactor_cashsev_alt/fnd6_newa1v1300_dv, 20),industry)
+```
