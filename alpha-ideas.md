@@ -202,3 +202,9 @@ rank(cash_quality * inventory_quality)
 ```
 group_rank(-ts_zscore(mdl177_deepvaluefactor_cashsev_alt/fnd6_newa1v1300_dv, 20),industry)
 ```
+
+```
+cum_rel_return = (1+ts_delay(rel_ret_all,4))*(1+ts_delay(rel_ret_all,3))*(1+ts_delay(rel_ret_all,2))*(1+ts_delay(rel_ret_all,1))*(1+rel_ret_all);
+cum_return = (1+ts_delay(returns,4))*(1+ts_delay(returns,3))*(1+ts_delay(returns,2))*(1+ts_delay(returns,1))*(1+returns);
+cum_rel_return - cum_return
+```
