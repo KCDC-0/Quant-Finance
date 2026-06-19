@@ -171,6 +171,21 @@ group_rank(-ts_zscore(mdl177_deepvaluefactor_cashsev_alt/fnd6_newa1v1300_dv, 17)
 > - neutralising the data by sector also showed slight improvement over industry, ultimaytely corporate cash generation structures differ wildly across macro segments, supporting the idea that sector, industry and market neutralisations perform better than subindustry
 
 
+USA, TOP3000, Decay 4, Delay 1, Truncation 0.08, Neutralization Subindustry (unsubmitted, too high correlation)
+```
+cum_rel_return = (1+ts_delay(rel_ret_all,4))*(1+ts_delay(rel_ret_all,3))*(1+ts_delay(rel_ret_all,2))*(1+ts_delay(rel_ret_all,1))*(1+rel_ret_all);
+cum_return = (1+ts_delay(returns,4))*(1+ts_delay(returns,3))*(1+ts_delay(returns,2))*(1+ts_delay(returns,1))*(1+returns);
+cum_rel_return - cum_return
+```
+
+> Main hypothesis: If peers have done much better than the stock, the stock may be a short-term laggard that could mean-revert up
+> 
+> Testing impovements: 
+> - neutralising the data by subindustry instead of sector showed improvement in sharpe, indicating that the magnitude of the difference in returns between peers of a given stock, differs across subcategories
+> - extending the decay period to 4 days to reduce turnover, hence improving fitness, while maintaining high sharpe
+
+
+
 
 <br>
 
