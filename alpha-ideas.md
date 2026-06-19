@@ -208,3 +208,11 @@ cum_rel_return = (1+ts_delay(rel_ret_all,4))*(1+ts_delay(rel_ret_all,3))*(1+ts_d
 cum_return = (1+ts_delay(returns,4))*(1+ts_delay(returns,3))*(1+ts_delay(returns,2))*(1+ts_delay(returns,1))*(1+returns);
 cum_rel_return - cum_return
 ```
+
+```
+hump(ts_zscore(ts_backfill(vec_avg(ern4_90div), 100), 5), hump=0.0005)
+```
+
+```
+-rank(mdl53_jc5_5year - mdl53_jc5_1year)
+```

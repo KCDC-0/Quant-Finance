@@ -4,6 +4,7 @@
 - ts_zscore(x,d): Shows how far today's x is from the d-day average in standard deviation units (Z-score)
 - ts_mean(x, d): Returns the average of x values over the past d days
 - ts_regression(x, y): Returns various parameters related to regression between x and y
+- ts_quantile(x, d): Calculates the ts_rank of the input and transforms it using the inverse cumulative distribution function (to normalise data distribution)
 
 ## Cross-Sectional operators
 

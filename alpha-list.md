@@ -156,20 +156,6 @@ group_rank(-ts_zscore(enterprise_value/cashflow_op, 63),industry)
 > - considered increasing decay to 4 days, resutling in a increase in fitness - however there was also a non-negligible decrease in sharpe
 
 
-USA, TOP3000, Decay 10, Delay 1, Truncation 0.08, Neutralization Sector
-```
-group_rank(-ts_zscore(mdl177_deepvaluefactor_cashsev_alt/fnd6_newa1v1300_dv, 17),industry)
-```
-
-> Main hypothesis: A lower EV/CF usually suggests the company is becoming cheaper relative to its cash-generating ability; a higher multiple suggests it’s getting more expensive
-> 
-> Testing impovements: 
-> - This model is a fork of the above a submission, with the goal of using more refined datasets and experimenting with other neutralisations
-> - The raw interaction divides a proprietary deep-value cash security factor (mdl177_deepvaluefactor_cashsev_alt) by an enterprise asset baseline volume (fnd6_newa1v1300_dv), isolating a highly refined enterprise-to-cash yield
-> - a shorter lookback period of 17 days in the zscore showed significant improvement in identifying intense institutional pricing inefficiencies
-> - to control the turnover, a decay of 10 days is used, this also helped to boost the fitnesss
-> - neutralising the data by sector also showed slight improvement over industry, ultimaytely corporate cash generation structures differ wildly across macro segments, supporting the idea that sector, industry and market neutralisations perform better than subindustry
-
 
 USA, TOP3000, Decay 4, Delay 1, Truncation 0.08, Neutralization Subindustry (unsubmitted, too high correlation)
 ```
@@ -185,6 +171,17 @@ cum_rel_return - cum_return
 > - extending the decay period to 4 days to reduce turnover, hence improving fitness, while maintaining high sharpe
 
 
+USA, TOP3000, Decay 0, Delay 1, Truncation 0.08, Neutralization Sector
+```
+rank(ts_zscore(fn_oth_income_loss_fx_transaction_and_tax_translation_adj_a, 252))
+```
+
+> Main hypothesis: A higher total after-tax foreign currency gain may indicate effective financial risk management against currency fluctuation, adding strength to a company's balance sheet, potentially making the company more attractive to investors
+> 
+> Testing impovements: 
+> - neutralising the data by sector or industry instead of market showed improvement in sharpe, and sector also gave a higher sub-universe shrpe value
+> - Observing average gains over the course of 252 days to confirm a stronger signal
+> - using ts_zscore to standardise the values over the lookback period
 
 
 <br>
@@ -315,6 +312,21 @@ USA, TOP3000, Decay 20, Delay 1, Truncation 0.01, Neutralization Subindustry
 > - reducing the correlation lookback window from a year to less than month to provide a more indicative window to react on the price correction
 > - using a low truncation value of 0.01 to prevent overly high weight concentrations, indirectly improving fitness
 > - having a high decay lookback period (20 days) to reduce magnitude of weights placed on the stocks, reducing turnover and improving fitness
+
+
+USA, TOP3000, Decay 10, Delay 1, Truncation 0.08, Neutralization Sector
+```
+group_rank(-ts_zscore(mdl177_deepvaluefactor_cashsev_alt/fnd6_newa1v1300_dv, 17),industry)
+```
+
+> Main hypothesis: A lower EV/CF usually suggests the company is becoming cheaper relative to its cash-generating ability; a higher multiple suggests it’s getting more expensive
+> 
+> Testing impovements: 
+> - This model is a fork of the above a submission, with the goal of using more refined datasets and experimenting with other neutralisations
+> - The raw interaction divides a proprietary deep-value cash security factor (mdl177_deepvaluefactor_cashsev_alt) by an enterprise asset baseline volume (fnd6_newa1v1300_dv), isolating a highly refined enterprise-to-cash yield
+> - a shorter lookback period of 17 days in the zscore showed significant improvement in identifying intense institutional pricing inefficiencies
+> - to control the turnover, a decay of 10 days is used, this also helped to boost the fitnesss
+> - neutralising the data by sector also showed slight improvement over industry, ultimaytely corporate cash generation structures differ wildly across macro segments, supporting the idea that sector, industry and market neutralisations perform better than subindustry
 
 <br>
 
